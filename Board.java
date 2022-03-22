@@ -23,42 +23,42 @@ public class Board {
 	
 		//initializes pieces and place them on the board.
 		//White Piece Initialization
-		board[0][1] = new Pawn(false);
-		board[1][1] = new Pawn(false);
-		board[2][1] = new Pawn(false);
-		board[3][1] = new Pawn(false);
-		board[4][1] = new Pawn(false);
-		board[5][1] = new Pawn(false);
-		board[6][1] = new Pawn(false);
-		board[7][1] = new Pawn(false);
+		board[0][1] = new PawnPiece(false);
+		board[1][1] = new PawnPiece(false);
+		board[2][1] = new PawnPiece(false);
+		board[3][1] = new PawnPiece(false);
+		board[4][1] = new PawnPiece(false);
+		board[5][1] = new PawnPiece(false);
+		board[6][1] = new PawnPiece(false);
+		board[7][1] = new PawnPiece(false);
 		
-		board[0][0] = new Rook(false);
-		board[1][0] = new Knight(false);
-		board[2][0] = new Bishop(false);
-		board[3][0] = new Queen(false);
-		board[4][0] = new King(false);
-		board[5][0] = new Bishop(false);
-		board[6][0] = new Knight(false);
-		board[7][0] = new Rook(false);
+		board[0][0] = new RookPiece(false);
+		board[1][0] = new KnightPiece(false);
+		board[2][0] = new BishopPiece(false);
+		board[3][0] = new QueenPiece(false);
+		board[4][0] = new KingPiece(false);
+		board[5][0] = new BishopPiece(false);
+		board[6][0] = new KnightPiece(false);
+		board[7][0] = new RookPiece(false);
 		
 		//Black Piece Initialization  
-		board[0][6] = new Pawn(true);
-		board[1][6] = new Pawn(true);
-		board[2][6] = new Pawn(true);
-		board[3][6] = new Pawn(true);
-		board[4][6] = new Pawn(true);
-		board[5][6] = new Pawn(true);
-		board[6][6] = new Pawn(true);
-		board[7][6] = new Pawn(true);
+		board[0][6] = new PawnPiece(true);
+		board[1][6] = new PawnPiece(true);
+		board[2][6] = new PawnPiece(true);
+		board[3][6] = new PawnPiece(true);
+		board[4][6] = new PawnPiece(true);
+		board[5][6] = new PawnPiece(true);
+		board[6][6] = new PawnPiece(true);
+		board[7][6] = new PawnPiece(true);
 		
-		board[0][7] = new Rook(true);
-		board[1][7] = new Knight(true);
-		board[2][7] = new Bishop(true);
-		board[3][7] = new Queen(true);
-		board[4][7] = new King(true);
-		board[5][7] = new Bishop(true);
-		board[6][7] = new Knight(true);
-		board[7][7] = new Rook(true);	
+		board[0][7] = new RookPiece(true);
+		board[1][7] = new KnightPiece(true);
+		board[2][7] = new BishopPiece(true);
+		board[3][7] = new QueenPiece(true);
+		board[4][7] = new KingPiece(true);
+		board[5][7] = new BishopPiece(true);
+		board[6][7] = new KnightPiece(true);
+		board[7][7] = new RookPiece(true);	
 		
 	}
 	
@@ -154,7 +154,7 @@ public class Board {
 		if ( board[oldX][oldY] != null) {
 			
 			String pieceName = board[oldX][oldY].drawPiece();
-			if (pieceName.equalsIgnoreCase("wk") && board[oldX][oldY].firstMove == true) { //is the king white and hasnt been moved
+			if (pieceName.equalsIgnoreCase("wk") && board[oldX][oldY].firstTurn == true) { //is the king white and hasnt been moved
 				
 				if (deltax == 2) { // is it right castling?
 
@@ -165,11 +165,11 @@ public class Board {
 								board[oldX][oldY] = null;
 								board[7][7] = null;
 								
-								board[newX][newY] = new King(true);
-								board[newX][newY].firstMove = false;
+								board[newX][newY] = new KingPiece(true);
+								board[newX][newY].firstTurn = false;
 								
-								board[5][7] = new Rook(true);
-								board[5][7].firstMove = false;
+								board[5][7] = new RookPiece(true);
+								board[5][7].firstTurn = false;
 								
 								return true;
 							}
@@ -182,7 +182,7 @@ public class Board {
 		if ( board[oldX][oldY] != null) {
 			String pieceName = board[oldX][oldY].drawPiece();
 
-			if (pieceName.equalsIgnoreCase("bk") && board[oldX][oldY].firstMove == true) { //is the king black and hasnt been moved
+			if (pieceName.equalsIgnoreCase("bk") && board[oldX][oldY].firstTurn == true) { //is the king black and hasnt been moved
 
 				if (deltax == 2) { // is it right castling?
 					if (board[7][0] != null) { //is there a rook at the place for castling?
@@ -191,11 +191,11 @@ public class Board {
 								board[oldX][oldY] = null;
 								board[7][0] = null;
 								
-								board[newX][newY] = new King(false);
-								board[newX][newY].firstMove = false;
+								board[newX][newY] = new KingPiece(false);
+								board[newX][newY].firstTurn = false;
 								
-								board[5][0] = new Rook(false);
-								board[5][0].firstMove = false;
+								board[5][0] = new RookPiece(false);
+								board[5][0].firstTurn = false;
 								
 								return true;
 							}
@@ -208,7 +208,7 @@ public class Board {
 		if ( board[oldX][oldY] != null) {
 			String pieceName = board[oldX][oldY].drawPiece();
 
-			if (pieceName.equalsIgnoreCase("wk") && board[oldX][oldY].firstMove == true) { //is the king white and hasnt been moved
+			if (pieceName.equalsIgnoreCase("wk") && board[oldX][oldY].firstTurn == true) { //is the king white and hasnt been moved
 
 				if (deltax == -2) { // is it left castling?
 
@@ -221,11 +221,11 @@ public class Board {
 								board[oldX][oldY] = null; //remove the king
 								board[0][7] = null; //remove the rook
 								
-								board[newX][newY] = new King(true);
-								board[newX][newY].firstMove = false;
+								board[newX][newY] = new KingPiece(true);
+								board[newX][newY].firstTurn = false;
 								
-								board[3][7] = new Rook(true);
-								board[3][7].firstMove = false;
+								board[3][7] = new RookPiece(true);
+								board[3][7].firstTurn = false;
 
 								
 								return true;
@@ -239,7 +239,7 @@ public class Board {
 		if ( board[oldX][oldY] != null) {
 			String pieceName = board[oldX][oldY].drawPiece();
 
-			if (pieceName.equalsIgnoreCase("bk") && board[oldX][oldY].firstMove == true) { //is the king black and hasnt been moved
+			if (pieceName.equalsIgnoreCase("bk") && board[oldX][oldY].firstTurn == true) { //is the king black and hasnt been moved
 
 
 				if (deltax == -2) { // is it left castling?
@@ -253,11 +253,11 @@ public class Board {
 								board[oldX][oldY] = null; //remove the king
 								board[0][0] = null; //remove the rook
 								
-								board[newX][newY] = new King(false);
-								board[newX][newY].firstMove = false;
+								board[newX][newY] = new KingPiece(false);
+								board[newX][newY].firstTurn = false;
 								
-								board[3][0] = new Rook(false);
-								board[3][0].firstMove = false;
+								board[3][0] = new RookPiece(false);
+								board[3][0].firstTurn = false;
 								
 								return true;
 							}
@@ -375,7 +375,7 @@ public class Board {
 				for (int x = 0; x < 8; x++){
 					if (board[x][y] != null) {
 						if (board[x][y].isWhite() == false) {
-							if (board[x][y].canMove(x, y, kingLocX, kingLocY, true)) {
+							if (board[x][y].isValidMove(x, y, kingLocX, kingLocY, true)) {
 								if (isPathClear(x, y, kingLocX, kingLocY)) {
 							
 									return true;
@@ -405,7 +405,7 @@ public class Board {
 				for (int x = 0; x < 8; x++){
 					if (board[x][y] != null) {
 						if (board[x][y].isWhite() == true) {
-							if (board[x][y].canMove(x, y, kingLocX, kingLocY, true)) {
+							if (board[x][y].isValidMove(x, y, kingLocX, kingLocY, true)) {
 								if (isPathClear(x, y, kingLocX, kingLocY)) {
 							
 									return true;
@@ -433,7 +433,7 @@ public class Board {
 								if (board[xx][yy] != null) {
 									isNewSpotEmpty = false;
 								}
-								if (board[x][y].canMove(x, y, xx, yy, isNewSpotEmpty)) {
+								if (board[x][y].isValidMove(x, y, xx, yy, isNewSpotEmpty)) {
 									if (isPathClear(x, y, xx, yy)) {
 										return false;
 									}
