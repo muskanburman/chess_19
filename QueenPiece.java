@@ -1,14 +1,14 @@
 public class QueenPiece extends Piece{
 
-    private String name = "Queen";
+    private String name = "Q";
 	
 	public QueenPiece(boolean value){
 		this.setWhite(value);
 		
 		if (value == true){
-			this.name = "White" + this.name; 
+			this.name = "w" + this.name; 
 		}else{
-			this.name = "Black" + this.name; 
+			this.name = "b" + this.name; 
 		}
 	}
 	

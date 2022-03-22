@@ -1,14 +1,14 @@
 public class PawnPiece extends Piece {
 
-    private String name = "Pawn";
+    private String name = "P";
 	
 	public PawnPiece(boolean value){
 		this.setWhite(value);
 		
 		if (value == true){
-			this.name = "White" + this.name; 
+			this.name = "w" + this.name; 
 		}else{
-			this.name = "Black" + this.name; 
+			this.name = "b" + this.name; 
 		}
 	}
 	

@@ -1,13 +1,13 @@
 public class RookPiece extends Piece {
-    private String name = "Rook";
+    private String name = "R";
 	
 	public RookPiece(boolean value){
 		this.setWhite(value);
 		
 		if (value == true){
-			this.name = "White" + this.name; 
+			this.name = "w" + this.name; 
 		}else{
-			this.name = "Black" + this.name; 
+			this.name = "b" + this.name; 
 		}
 	}
 	
