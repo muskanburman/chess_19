@@ -420,31 +420,4 @@ public class Board {
 	
 		return false;
 	}
-	
-	/*public boolean checkStalemate(boolean white) {
-		
-		for (int y = 0; y < 8; y++){
-			for (int x = 0; x < 8; x++){
-				if (board[x][y] != null) {
-					if (board[x][y].isWhite() == white) {
-						for (int yy = 0; yy < 8; yy++){
-							for (int xx = 0; xx < 8; xx++){
-								boolean isNewSpotEmpty = true;
-								if (board[xx][yy] != null) {
-									isNewSpotEmpty = false;
-								}
-								if (board[x][y].isValidMove(x, y, xx, yy, isNewSpotEmpty)) {
-									if (isPathClear(x, y, xx, yy)) {
-										return false;
-									}
-								}
-							}
-						}	
-					}
-				}
-			}
-		}	
-		
-		return true;  //stalemate found
-	} */
 }
