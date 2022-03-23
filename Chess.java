@@ -45,18 +45,14 @@ public class Chess {
 		     try {
 		    	 
 		    	 if (whiteTurn){		
-		    			System.out.println("White player's turn:");	
+		    			System.out.println("White's move:");	
 		    	 }else{
-		    		 System.out.println("Black player's turn:");
+		    		 System.out.println("Black's move:");
 		    	 }
 		    	 
 		    	 boolean check = gameboard.detectCheck(whiteTurn);
 		    	 if (check == true) {
-		    		 if (whiteTurn) {
-		    			System.out.println("white king in check");
-		    		 }else {
-		    			System.out.println("black king in check");
-		    		 }
+		    	    System.out.println("Check");
 		    	 }
 		    
 		    	 input = br.readLine();
@@ -113,10 +109,10 @@ public class Chess {
 		for (int i = 0; i < 8; i++){
 			for (int j = 0; j < 8; j++){
 				if (white){
-					result[i][j] = "  |";
+					result[i][j] = "   ";
 					white = false;
 				}else{
-					result[i][j] = "##|";
+					result[i][j] = "## ";
 					white = true;
 				}
 			}
@@ -128,22 +124,20 @@ public class Chess {
 			for (int x = 0; x < 8; x++){
 				
 				if ( gameboard.board[x][y] != null){
-					result[x][y] = gameboard.board[x][y].drawPiece() + "|";
+					result[x][y] = gameboard.board[x][y].drawPiece() + " ";
 				}
 			}
 		}
 		
 		//print out the whole board  
-		System.out.println("_________________________");
 		for (int y = 0; y < 8; y++){
-			System.out.print("|");
+			
 			for (int x = 0; x < 8; x++){
 				System.out.print(result[x][y]);
 			}
-			System.out.print("  " + (8-y));
+			System.out.print(" " + (8-y));
 			System.out.println();
 		}
-		System.out.println("\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'"); 
 		System.out.println(" a  b  c  d  e  f  g  h"); 
 	}
 	
@@ -212,7 +206,6 @@ public class Chess {
 				currentLoc = array[0];
 				newLoc = array[1];
 				if (currentLoc.length() == 2 && newLoc.length() == 2 ){
-					
 					executeMove();
 				}else{
 					System.out.println("Invalid input. Please try again.");
@@ -281,7 +274,7 @@ public class Chess {
 								
 								whiteTurn = !whiteTurn;
 							}else{
-								System.out.println("Illegal move: This piece cannot move this way.");
+								System.out.println("Illegal move, try again");
 							}
 							
 						}else if ((whiteTurn && !gameboard.board[newx][newy].isWhite()) || 
@@ -298,21 +291,21 @@ public class Chess {
 								
 								whiteTurn = !whiteTurn;
 							}else{
-									System.out.println("Illegal move: This piece cannot move this way.");
+									System.out.println("Illegal move, try again");
 							}
 							
 						}else{
-							 System.out.println("Illegal move. Please try again..??");
+							 System.out.println("Illegal move, try again");
 						}
 					
 				}else{
-					 System.out.println("Illegal move: This piece cannot be moved this way. Please try again.");
+					 System.out.println("Illegal move, try again");
 				}
 			}else{
-				System.out.println("Invalid move: There are no pieces at the chosen location. Please try again.");
+				System.out.println("Illegal move, try again");
 			}
 		}else{
-			System.out.println("Invalid move: The chosen location is not on the board. Please try again.");
+			System.out.println("Illegal move, try again");
 		}
 		 
 	}
@@ -367,25 +360,25 @@ public class Chess {
 		
 		
 		if (legalInput(oldx, oldy, newx, newy) == false){ //are the coordinates entered legal?
-			System.out.println("Invalid file and rank. Please try again.");
+			System.out.println("Illegal move, try again");
 			return;
 		}
 		
 		if (gameboard.board[oldx][oldy] == null){ // is there a piece in the chosen spot?
-			System.out.println("A piece does not exist in this spot. Please try again.");
+			System.out.println("Illegal move, try again");
 			return;
 		}
 		
 		
 		if (whiteTurn != gameboard.board[oldx][oldy].isWhite()) {
-			System.out.println("The piece you are attempting to move does not belong to you. Please try again.");
+			System.out.println("Illegal move, try again");
 			return;
 		}
 		
 		boolean isNewSpotEmpty = true;
 		if (gameboard.board[newx][newy] != null) {
 			if (gameboard.board[newx][newy].isWhite() == whiteTurn) {
-				System.out.println("Cannot advance to a location taken by a piece of the same color. Please Try again.");
+				System.out.println("Illegal move, try again");
 				return;
 			}
 			isNewSpotEmpty = false;
@@ -415,12 +408,12 @@ public class Chess {
 		} 
 		
 		if (gameboard.isPathClear(oldx, oldy, newx, newy) == false) {
-			System.out.println("Cannot move to that location because there are pieces on the way.");
+			System.out.println("Illegal move, try again");
 			return;
 		}
 		 
 		if (gameboard.board[oldx][oldy].isValidMove(oldx, oldy, newx, newy, isNewSpotEmpty) == false) {
-			System.out.println("Illegal move. This piece cannot move this way.");
+			System.out.println("Illegal move, try again");
 			return;
 		}
 		
