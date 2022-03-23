@@ -3,9 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-//TODO: check
-//TODO: check mate
-
 
 public class Chess {
 	
@@ -46,6 +43,8 @@ public class Chess {
 		    
 		     try {
 
+
+
 				boolean check = gameBoard.detectCheck(whiteTurn);
 		    	 if (check == true) {
 					System.out.println("Check");
@@ -64,7 +63,10 @@ public class Chess {
 		  
 				 if (illegalMoveCheck == false){
 					drawBoard();
+				} else {
+					illegalMoveCheck = false;
 				}
+
 		    	 
 		    	 check = gameBoard.detectCheck(!whiteTurn);
 		    	 if (check == true) {

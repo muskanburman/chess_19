@@ -356,7 +356,7 @@ public class Board {
 	public boolean detectCheck(boolean whiteturn) {
 		int kingLocX = 0;
 		int kingLocY = 0;
-		
+		boolean isFound = false;
 			
 		if (whiteturn == true) {//if whiteturn is false, check if the white is in check
 			for (int y = 0; y < 8; y++){
@@ -365,9 +365,13 @@ public class Board {
 						if (board[x][y].drawPiece().equalsIgnoreCase("wk")) {
 							kingLocX = x;
 							kingLocY = y;
+							isFound = true;
 							break;
 						}
 					}
+				}
+				if (isFound == true) {
+					break;
 				}
 			}
 			
@@ -395,9 +399,14 @@ public class Board {
 						if (board[x][y].drawPiece().equalsIgnoreCase("bk")) {
 							kingLocX = x;
 							kingLocY = y;
+							isFound = true;
 							break;
 						}
 					}
+
+				}
+				if (isFound == true) {
+					break;
 				}
 			}
 			
