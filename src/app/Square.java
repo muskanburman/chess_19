@@ -42,7 +42,7 @@ public class Square {
         if(piece instanceof RookPiece) return player + 'R';
         if(piece instanceof KnightPiece) return player + 'N';
         if(piece instanceof BishopPiece) return player + 'B';
-        if(piece instanceof PawnPiece) return player + 'p';
+        if(piece instanceof PawnPiece) return player + 'P';
         else return "  ";
     }
 }

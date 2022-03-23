@@ -114,7 +114,7 @@ public class Game {
                         winnerDeclared = true;
                         System.out.println("Checkmate");
                         System.out.println();
-                        board.display();
+                        //board.display();
 
                     }
 
