@@ -45,9 +45,11 @@ public class Chess {
 		     try {
 		    	 
 		    	 if (whiteTurn){		
-		    			System.out.println("White's move:");	
+						System.out.println("White's move:");	
+						System.out.println();	
 		    	 }else{
-		    		 System.out.println("Black's move:");
+					 System.out.println("Black's move:");
+					 System.out.println();
 		    	 }
 		    	 
 		    	 boolean check = gameboard.detectCheck(whiteTurn);
@@ -64,7 +66,7 @@ public class Chess {
 		    	 check = gameboard.detectCheck(!whiteTurn);
 		    	 if (check == true) {
 		    		 if (!whiteTurn) {
-		    			System.out.println("Checkmate");
+						System.out.println("Checkmate");
 		    			System.out.println("Black wins");
 		    		 }else {
 		    			System.out.println("Checkmate");
@@ -73,14 +75,15 @@ public class Chess {
 		    		 System.exit(1);
 		    	 }
 		    	 
-		    	if ( gameboard.checkStalemate( whiteTurn)){
+		    	/*if ( gameboard.checkStalemate( whiteTurn)){
 		    		System.out.println("Stalemate");
 		    		System.exit(1);
-		    	}
+		    	}*/
 		    
 		    	 
 		     } catch (IOException e) {
-		    	 System.out.println("Invalid input. Try again.");
+				 System.out.println("Illegal input, try again");
+				 System.out.println();
 		     }       
 		}
 		
@@ -130,6 +133,7 @@ public class Chess {
 		}
 		
 		//print out the whole board  
+		System.out.println();
 		for (int y = 0; y < 8; y++){
 			
 			for (int x = 0; x < 8; x++){
@@ -138,7 +142,9 @@ public class Chess {
 			System.out.print(" " + (8-y));
 			System.out.println();
 		}
-		System.out.println(" a  b  c  d  e  f  g  h"); 
+		System.out.println(" a  b  c  d  e  f  g  h");
+		System.out.println();
+
 	}
 	
 	
@@ -197,10 +203,10 @@ public class Chess {
 						System.out.println("Draw");
 						System.exit(1);
 					}else{
-						System.out.println("You must ask the opponent if they are willing to call the game a draw first.");
+						System.out.println("Illegal move, try again");
 					}
 				}else{
-					System.out.println("Invalid input. Please try again. ");
+					System.out.println("Illegal move, try again");
 				}
 			}else if (count == 2) {
 				currentLoc = array[0];
@@ -208,7 +214,7 @@ public class Chess {
 				if (currentLoc.length() == 2 && newLoc.length() == 2 ){
 					executeMove();
 				}else{
-					System.out.println("Invalid input. Please try again.");
+					System.out.println("Illegal move, try again");
 				}
 				
 			}else if (count == 3){
@@ -223,10 +229,10 @@ public class Chess {
 						thirdArgument = array[2];
 						executeMove();
 					}else{
-						System.out.println("Invalid input. Please try again.");
+						System.out.println("Illegal move, try again");
 					}
 				}else{
-					System.out.println("Invalid input. Please try again.");
+					System.out.println("Illegal move, try again");
 				}
 			}
 		}else{
