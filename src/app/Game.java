@@ -187,12 +187,12 @@ public class Game {
         if(!startSquare.piece.isValidMove(start, end, board))
             return false;
 
-        //Player executed en passant
+        //En passant executed by player
         if(startSquare.piece.enpassant == '1') {
             board.square[start.getY()][end.getX()] = null;
         }
 
-        //Player executed castling
+        //Castling executed by player
         if(startSquare.piece.castling == 'l') {
             board.square[end.getY()][end.getX() + 1] = board.square[end.getY()][0];
             board.square[end.getY()][0] = null;
@@ -212,13 +212,13 @@ public class Game {
     }
 
     /**
-     * Detects if a player is currently in check
+     * Determines if a player is in check
      *
      * @return True if a player is in check, false otherwise
      */
     public boolean detectCheck() {
 
-        //Holds the location of each player's king, and the piece to compare
+        //Marks the location of each player's king and marks the piece to compare
         Point whitesKing = null, blacksKing = null, test;
 
         //Search for each king
