@@ -44,7 +44,7 @@ public class PawnPiece extends Piece{
         else
             numSpacesY = newPos.getY() - currentPos.getY();
 
-        //Check to if space is empty/avalaible to move up/down
+        //Check to if space is empty/avaliable to move up/down
         if(numSpacesX == 0 && newPosSquare == null) {
 
             //Moving up/down 1 space
@@ -60,10 +60,10 @@ public class PawnPiece extends Piece{
                 return true;
             }
 
-            //Moving up/down 2 spaces, check if first move
+            //Moving up/down 2 spaces, check to see if its the first move
             if(numSpacesY == 2 && isFirstMove == true) {
 
-                //Check if path is clear
+                //Path should be clear
                 int midY = (currentPos.getY() + newPos.getY()) / 2;
                 if(board.square[midY][currentPos.getX()] == null) {
                     isFirstMove = false;
@@ -76,10 +76,10 @@ public class PawnPiece extends Piece{
         }
 
 
-        //Diagonal capture
+        //capture diagonally
         if(numSpacesX == 1 && numSpacesY == 1) {
 
-            //Check to make sure trying to capture opponents piece and not landing on their own
+            //Check to make sure that the piece is not taking place of a piece of its own kind and is capturing only opponent's piece
             if(newPosSquare != null && !currentPosSquare.player.equals(newPosSquare.player)) {
 
                 //Check for promotion
@@ -111,7 +111,7 @@ public class PawnPiece extends Piece{
 
 
     /**
-     * Checks the promotion field and returns the appropriate piece
+     * This method checks which piece the pawn will be promoted to according to input, and returns that piece
      *
      * @return The piece to promote the Pawn to (Rook, Knight, Bishop, or Queen)
      */
