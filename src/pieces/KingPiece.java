@@ -3,7 +3,7 @@ package src.pieces;
 import src.structure.*;
 
 /**
- * King chess piece, subclass of Piece
+ * This is the class for the King piece, and it extends the class Piece
  *
  * @author Muskan Burman
  * @author Magdi Aref
@@ -11,50 +11,50 @@ import src.structure.*;
 public class KingPiece extends Piece {
 
     public KingPiece() {
-        firstMove = true;
+        isFirstMove = true;
         castling = '0';
     }
 
     @Override
-    public boolean isValidMove(Point start, Point end, Board board) {
+    public boolean isValidMove(Point currentPos, Point newPos, Board board) {
 
-        Square startSquare = board.square[start.getY()][start.getX()];
-        Square endSquare = board.square[end.getY()][end.getX()];
+        Square currentPosSquare = board.square[currentPos.getY()][currentPos.getX()];
+        Square newPosSquare = board.square[newPos.getY()][newPos.getX()];
 
         //Number of spaces moved in X and Y direction
-        int numSpacesX = Math.abs(start.getX() - end.getX());
-        int numSpacesY = Math.abs(start.getY() - end.getY());
+        int numSpacesX = Math.abs(currentPos.getX() - newPos.getX());
+        int numSpacesY = Math.abs(currentPos.getY() - newPos.getY());
 
-        //Check to make sure not landing on their own piece
-        if(endSquare != null && startSquare.player.equals(endSquare.player))
+        //Check to make sure that the piece is not taking place of a piece of its own kind
+        if(newPosSquare != null && currentPosSquare.player.equals(newPosSquare.player))
             return false;
 
         //Move to adjacent square
         if((numSpacesX == 1 && numSpacesY == 0) ||
            (numSpacesX == 0 && numSpacesY == 1) ||
            (numSpacesX == 1 && numSpacesY == 1)) {
-            firstMove = false;
+            isFirstMove = false;
             castling = '0';
             return true;
         }
 
 
         //Castling
-        if(numSpacesX == 2 && numSpacesY == 0 && firstMove) {
+        if(numSpacesX == 2 && numSpacesY == 0 && isFirstMove) {
 
-            Square leftRookSquare = board.square[start.getY()][0];
-            Square rightRookSquare = board.square[start.getY()][7];
+            Square leftRookSquare = board.square[currentPos.getY()][0];
+            Square rightRookSquare = board.square[currentPos.getY()][7];
 
-            //Moving left
-            if(start.getX() > end.getX()) {
+            //Left
+            if(currentPos.getX() > newPos.getX()) {
                 if(leftRookSquare != null &&
                    leftRookSquare.piece instanceof RookPiece &&
-                   leftRookSquare.piece.firstMove &&
-                   board.square[start.getY()][start.getX()].player.equals(leftRookSquare.player)) {
+                   leftRookSquare.piece.isFirstMove &&
+                   board.square[currentPos.getY()][currentPos.getX()].player.equals(leftRookSquare.player)) {
 
-                    //Make sure path is clear
-                    for(int i = start.getX() - 1; i > 0; i--)
-                        if(board.square[start.getY()][i] != null)
+                    //Path should be clear
+                    for(int i = currentPos.getX() - 1; i > 0; i--)
+                        if(board.square[currentPos.getY()][i] != null)
                             return false;
 
 
@@ -63,16 +63,16 @@ public class KingPiece extends Piece {
                 }
             }
 
-            //Moving right
+            //Right
             else {
                 if(rightRookSquare != null &&
                    rightRookSquare.piece instanceof RookPiece &&
-                   rightRookSquare.piece.firstMove &&
-                   board.square[start.getY()][start.getX()].player.equals(rightRookSquare.player)) {
+                   rightRookSquare.piece.isFirstMove &&
+                   board.square[currentPos.getY()][currentPos.getX()].player.equals(rightRookSquare.player)) {
 
-                    //Make sure path is clear
-                    for(int i = start.getX() + 1; i < 7; i++)
-                        if(board.square[start.getY()][i] != null)
+                    //Path should be clear
+                    for(int i = currentPos.getX() + 1; i < 7; i++)
+                        if(board.square[currentPos.getY()][i] != null)
                             return false;
 
 

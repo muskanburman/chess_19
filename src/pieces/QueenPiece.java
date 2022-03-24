@@ -3,7 +3,7 @@ package src.pieces;
 import src.structure.*;
 
 /**
- * Queen chess piece, subclass of Piece
+ * This is the class for the Queen piece, and it extends the class Piece
  *
  * @author Muskan Burman
  * @author Magdi Aref
@@ -11,36 +11,32 @@ import src.structure.*;
 public class QueenPiece extends Piece {
 
     public QueenPiece() {
-        firstMove = true;
+        isFirstMove = true;
     }
 
     @Override
-    public boolean isValidMove(Point start, Point end, Board board) {
+    public boolean isValidMove(Point currentPos, Point newPos, Board board) {
 
-        Square startSquare = board.square[start.getY()][start.getX()];
-        Square endSquare = board.square[end.getY()][end.getX()];
+        Square currentPosSquare = board.square[currentPos.getY()][currentPos.getX()];
+        Square newPosSquare = board.square[newPos.getY()][newPos.getX()];
 
         //Number of spaces moved in X and Y direction
-        int numSpacesX = Math.abs(start.getX() - end.getX());
-        int numSpacesY = Math.abs(start.getY() - end.getY());
+        int numSpacesX = Math.abs(currentPos.getX() - newPos.getX());
+        int numSpacesY = Math.abs(currentPos.getY() - newPos.getY());
 
-        //Check to make sure not landing on their own piece
-        if(endSquare != null && startSquare.player.equals(endSquare.player))
+        //Check to make sure that the piece is not taking place of a piece of its own kind
+        if(newPosSquare != null && currentPosSquare.player.equals(newPosSquare.player))
             return false;
 
-
-
-        /*
-
-        	VERTICAL AND HORIZONTAL MOVEMENT
-
+		/*
+		Vertical and Horizontal Movement
          */
 
-		//Moving up
+		//Up
 		if(numSpacesX == 0 && numSpacesY > 0){
-			if(start.getY() > end.getY()) {
-				for (int i = start.getY() - 1; i > end.getY(); i--) {
-					if (board.square[i][start.getX()] != null)
+			if(currentPos.getY() > newPos.getY()) {
+				for (int i = currentPos.getY() - 1; i > newPos.getY(); i--) {
+					if (board.square[i][currentPos.getX()] != null)
 						return false;
 				}
 
@@ -48,11 +44,11 @@ public class QueenPiece extends Piece {
 			}
 		}
 
-		//Moving down
+		//Down
 		if(numSpacesX == 0 && numSpacesY > 0){
-			if(start.getY() < end.getY()) {
-				for (int i = start.getY() + 1; i < end.getY(); i++) {
-					if (board.square[i][start.getX()] != null)
+			if(currentPos.getY() < newPos.getY()) {
+				for (int i = currentPos.getY() + 1; i < newPos.getY(); i++) {
+					if (board.square[i][currentPos.getX()] != null)
 						return false;
 				}
 
@@ -60,11 +56,11 @@ public class QueenPiece extends Piece {
 			}
 		}
 
-		//Moving left
+		//Left
 		if(numSpacesX > 0 && numSpacesY == 0){
-			if(start.getX() > end.getX()) {
-				for (int i = start.getX() - 1; i > end.getX(); i--) {
-					if (board.square[start.getY()][i] != null)
+			if(currentPos.getX() > newPos.getX()) {
+				for (int i = currentPos.getX() - 1; i > newPos.getX(); i--) {
+					if (board.square[currentPos.getY()][i] != null)
 						return false;
 				}
 
@@ -72,30 +68,26 @@ public class QueenPiece extends Piece {
 			}
 		}
 
-		//Moving right
+		//Right
 		if(numSpacesX > 0 && numSpacesY == 0){
-			if(start.getX() < end.getX()) {
-				for (int i = start.getX() + 1; i < end.getX(); i++) {
-					if (board.square[start.getY()][i] != null)
+			if(currentPos.getX() < newPos.getX()) {
+				for (int i = currentPos.getX() + 1; i < newPos.getX(); i++) {
+					if (board.square[currentPos.getY()][i] != null)
 						return false;
 				}
 
 				return true;
 			}
 		}
-
-
 
 		/*
-
-			DIAGONAL MOVEMENT
-
+		Diagonal Movement
 		 */
 
-		//Up and left diagonal
+		//Up and left 
 		if(numSpacesX == numSpacesY) {
-			if (start.getX() > end.getX() && start.getY() > end.getY()) {
-				for (int i = start.getY() - 1, j = start.getX() - 1; i > end.getY() && j > end.getX(); i--, j--) {
+			if (currentPos.getX() > newPos.getX() && currentPos.getY() > newPos.getY()) {
+				for (int i = currentPos.getY() - 1, j = currentPos.getX() - 1; i > newPos.getY() && j > newPos.getX(); i--, j--) {
 					if (board.square[i][j] != null)
 						return false;
 				}
@@ -103,10 +95,10 @@ public class QueenPiece extends Piece {
 			}
 		}
 
-		//Up and right diagonal
+		//Up and right 
 		if(numSpacesX == numSpacesY) {
-			if (start.getX() < end.getX() && start.getY() > end.getY()) {
-				for (int i = start.getY() - 1, j = start.getX() + 1; i > end.getY() && j < end.getX(); i--, j++) {
+			if (currentPos.getX() < newPos.getX() && currentPos.getY() > newPos.getY()) {
+				for (int i = currentPos.getY() - 1, j = currentPos.getX() + 1; i > newPos.getY() && j < newPos.getX(); i--, j++) {
 					if (board.square[i][j] != null)
 						return false;
 				}
@@ -114,10 +106,10 @@ public class QueenPiece extends Piece {
 			}
 		}
 
-		//Bottom and left diagonal
+		//Bottom and left 
 		if(numSpacesX == numSpacesY) {
-			if (start.getX() > end.getX() && start.getY() < end.getY()) {
-				for (int i = start.getY() + 1, j = start.getX() - 1; i < end.getY() && j > end.getX(); i++, j--) {
+			if (currentPos.getX() > newPos.getX() && currentPos.getY() < newPos.getY()) {
+				for (int i = currentPos.getY() + 1, j = currentPos.getX() - 1; i < newPos.getY() && j > newPos.getX(); i++, j--) {
 					if (board.square[i][j] != null)
 						return false;
 				}
@@ -125,10 +117,10 @@ public class QueenPiece extends Piece {
 			}
 		}
 
-		//Bottom and right diagonal
+		//Bottom and right 
 		if(numSpacesX == numSpacesY) {
-			if (start.getX() < end.getX() && start.getY() < end.getY()) {
-				for (int i = start.getY() + 1, j = start.getX() + 1; i < end.getY() && j < end.getX(); i++, j++) {
+			if (currentPos.getX() < newPos.getX() && currentPos.getY() < newPos.getY()) {
+				for (int i = currentPos.getY() + 1, j = currentPos.getX() + 1; i < newPos.getY() && j < newPos.getX(); i++, j++) {
 					if (board.square[i][j] != null)
 						return false;
 				}

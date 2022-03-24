@@ -3,7 +3,7 @@ package src.pieces;
 import src.structure.*;
 
 /**
- * Bishop chess piece, subclass of Piece
+ * This is the class for the Bishop piece, and it extends the class Piece
  *
  * @author Muskan Burman
  * @author Magdi Aref
@@ -11,28 +11,28 @@ import src.structure.*;
 public class BishopPiece extends Piece{
 
     public BishopPiece() {
-        firstMove = true;
+        isFirstMove = true;
     }
 
     @Override
-    public boolean isValidMove(Point start, Point end, Board board) {
+    public boolean isValidMove(Point currentPos, Point newPos, Board board) {
 
-        Square startSquare = board.square[start.getY()][start.getX()];
-        Square endSquare = board.square[end.getY()][end.getX()];
+        Square currentPosSquare = board.square[currentPos.getY()][currentPos.getX()];
+        Square newPosSquare = board.square[newPos.getY()][newPos.getX()];
 
         //Number of spaces moved in X and Y direction
-        int numSpacesX = Math.abs(start.getX() - end.getX());
-        int numSpacesY = Math.abs(start.getY() - end.getY());
+        int numSpacesX = Math.abs(currentPos.getX() - newPos.getX());
+        int numSpacesY = Math.abs(currentPos.getY() - newPos.getY());
 
-        //Check to make sure not landing on their own piece
-        if(endSquare != null && startSquare.player.equals(endSquare.player))
+        //Check to make sure that the piece is not taking place of a piece of its own kind 
+        if(newPosSquare != null && currentPosSquare.player.equals(newPosSquare.player))
             return false;
 
 
-        //Up and left diagonal
+        //moving up and left diagonally
         if(numSpacesX == numSpacesY) {
-            if (start.getX() > end.getX() && start.getY() > end.getY()) {
-                for (int i = start.getY() - 1, j = start.getX() - 1; i > end.getY() && j > end.getX(); i--, j--) {
+            if (currentPos.getX() > newPos.getX() && currentPos.getY() > newPos.getY()) {
+                for (int i = currentPos.getY() - 1, j = currentPos.getX() - 1; i > newPos.getY() && j > newPos.getX(); i--, j--) {
                     if (board.square[i][j] != null)
                         return false;
                 }
@@ -40,10 +40,10 @@ public class BishopPiece extends Piece{
             }
         }
 
-        //Up and right diagonal
+        //moving up and right diagonally
         if(numSpacesX == numSpacesY) {
-            if (start.getX() < end.getX() && start.getY() > end.getY()) {
-                for (int i = start.getY() - 1, j = start.getX() + 1; i > end.getY() && j < end.getX(); i--, j++) {
+            if (currentPos.getX() < newPos.getX() && currentPos.getY() > newPos.getY()) {
+                for (int i = currentPos.getY() - 1, j = currentPos.getX() + 1; i > newPos.getY() && j < newPos.getX(); i--, j++) {
                     if (board.square[i][j] != null)
                         return false;
                 }
@@ -51,10 +51,10 @@ public class BishopPiece extends Piece{
             }
         }
 
-        //Bottom and left diagonal
+        //moving bottom and left diagonally
         if(numSpacesX == numSpacesY) {
-            if (start.getX() > end.getX() && start.getY() < end.getY()) {
-                for (int i = start.getY() + 1, j = start.getX() - 1; i < end.getY() && j > end.getX(); i++, j--) {
+            if (currentPos.getX() > newPos.getX() && currentPos.getY() < newPos.getY()) {
+                for (int i = currentPos.getY() + 1, j = currentPos.getX() - 1; i < newPos.getY() && j > newPos.getX(); i++, j--) {
                     if (board.square[i][j] != null)
                         return false;
                 }
@@ -62,10 +62,10 @@ public class BishopPiece extends Piece{
             }
         }
 
-        //Bottom and right diagonal
+        //moving bottom and right diagonally
         if(numSpacesX == numSpacesY) {
-            if (start.getX() < end.getX() && start.getY() < end.getY()) {
-                for (int i = start.getY() + 1, j = start.getX() + 1; i < end.getY() && j < end.getX(); i++, j++) {
+            if (currentPos.getX() < newPos.getX() && currentPos.getY() < newPos.getY()) {
+                for (int i = currentPos.getY() + 1, j = currentPos.getX() + 1; i < newPos.getY() && j < newPos.getX(); i++, j++) {
                     if (board.square[i][j] != null)
                         return false;
                 }
