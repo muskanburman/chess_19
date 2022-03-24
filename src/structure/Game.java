@@ -169,7 +169,7 @@ public class Game {
         if(board.square[start.getY()][start.getX()] == null)
             return false;
 
-        Square startSquare = board.square[start.getY()][start.getX()];
+        Spot startSquare = board.square[start.getY()][start.getX()];
 
         //Check that the approprate player is moving their own piece
         if((startSquare.player.equals("b") && turn == Turn.WHITE) ||
@@ -224,7 +224,7 @@ public class Game {
         //Search for each king
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-                Square s = board.square[i][j];
+                Spot s = board.square[i][j];
                 if(s == null) {
                     //Skip null spot
                 }
@@ -241,7 +241,7 @@ public class Game {
         int x = 0;
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-                Square s = board.square[i][j];
+                Spot s = board.square[i][j];
                 if(s == null) {
                     //Skip the null spot
                 } else if(s.player.equals("w")) {
@@ -298,8 +298,8 @@ public class Game {
                             if(board.square[a][b].piece.isValidMove(start, end, board)) {
 
                                 //Move the piece
-                                Square startSquare = board.square[a][b];
-                                Square endSquare = board.square[end.getY()][end.getX()];
+                                Spot startSquare = board.square[a][b];
+                                Spot endSquare = board.square[end.getY()][end.getX()];
                                 board.square[end.getY()][end.getX()] = board.square[a][b];
                                 board.square[a][b] = null;
 
@@ -375,7 +375,7 @@ public class Game {
 
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-                Square s = board.square[i][j];
+                Spot s = board.square[i][j];
                 if(s == null) {
 
                 }

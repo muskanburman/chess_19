@@ -17,15 +17,15 @@ public class KnightPiece extends Piece {
     @Override
     public boolean isValidMove(Point currentPos, Point newPos, Board board) {
 
-        Square currentPosSquare = board.square[currentPos.getY()][currentPos.getX()];
-        Square newPosSquare = board.square[newPos.getY()][newPos.getX()];
+        Spot currentPosSpot = board.spot[currentPos.getY()][currentPos.getX()];
+        Spot newPosSpot = board.spot[newPos.getY()][newPos.getX()];
 
         //Number of spaces moved in X and Y direction
         int numSpacesX = Math.abs(currentPos.getX() - newPos.getX());
         int numSpacesY = Math.abs(currentPos.getY() - newPos.getY());
 
         //Check to make sure that the piece is not taking place of a piece of its own kind
-        if(newPosSquare != null && currentPosSquare.player.equals(newPosSquare.player))
+        if(newPosSpot != null && currentPosSpot.player.equals(newPosSpot.player))
             return false;
 
         //Move 1 Left or right , move 2 up or down 

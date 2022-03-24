@@ -18,18 +18,18 @@ public class KingPiece extends Piece {
     @Override
     public boolean isValidMove(Point currentPos, Point newPos, Board board) {
 
-        Square currentPosSquare = board.square[currentPos.getY()][currentPos.getX()];
-        Square newPosSquare = board.square[newPos.getY()][newPos.getX()];
+        Spot currentPosSpot = board.spot[currentPos.getY()][currentPos.getX()];
+        Spot newPosSpot = board.spot[newPos.getY()][newPos.getX()];
 
         //Number of spaces moved in X and Y direction
         int numSpacesX = Math.abs(currentPos.getX() - newPos.getX());
         int numSpacesY = Math.abs(currentPos.getY() - newPos.getY());
 
         //Check to make sure that the piece is not taking place of a piece of its own kind
-        if(newPosSquare != null && currentPosSquare.player.equals(newPosSquare.player))
+        if(newPosSpot != null && currentPosSpot.player.equals(newPosSpot.player))
             return false;
 
-        //Move to adjacent square
+        //Move to adjacent spot
         if((numSpacesX == 1 && numSpacesY == 0) ||
            (numSpacesX == 0 && numSpacesY == 1) ||
            (numSpacesX == 1 && numSpacesY == 1)) {
@@ -42,19 +42,19 @@ public class KingPiece extends Piece {
         //Castling
         if(numSpacesX == 2 && numSpacesY == 0 && isFirstMove) {
 
-            Square leftRookSquare = board.square[currentPos.getY()][0];
-            Square rightRookSquare = board.square[currentPos.getY()][7];
+            Spot leftRookSpot = board.spot[currentPos.getY()][0];
+            Spot rightRookSpot = board.spot[currentPos.getY()][7];
 
             //Left
             if(currentPos.getX() > newPos.getX()) {
-                if(leftRookSquare != null &&
-                   leftRookSquare.piece instanceof RookPiece &&
-                   leftRookSquare.piece.isFirstMove &&
-                   board.square[currentPos.getY()][currentPos.getX()].player.equals(leftRookSquare.player)) {
+                if(leftRookSpot != null &&
+                   leftRookSpot.piece instanceof RookPiece &&
+                   leftRookSpot.piece.isFirstMove &&
+                   board.spot[currentPos.getY()][currentPos.getX()].player.equals(leftRookSpot.player)) {
 
                     //Path should be clear
                     for(int i = currentPos.getX() - 1; i > 0; i--)
-                        if(board.square[currentPos.getY()][i] != null)
+                        if(board.spot[currentPos.getY()][i] != null)
                             return false;
 
 
@@ -65,14 +65,14 @@ public class KingPiece extends Piece {
 
             //Right
             else {
-                if(rightRookSquare != null &&
-                   rightRookSquare.piece instanceof RookPiece &&
-                   rightRookSquare.piece.isFirstMove &&
-                   board.square[currentPos.getY()][currentPos.getX()].player.equals(rightRookSquare.player)) {
+                if(rightRookSpot != null &&
+                   rightRookSpot.piece instanceof RookPiece &&
+                   rightRookSpot.piece.isFirstMove &&
+                   board.spot[currentPos.getY()][currentPos.getX()].player.equals(rightRookSpot.player)) {
 
                     //Path should be clear
                     for(int i = currentPos.getX() + 1; i < 7; i++)
-                        if(board.square[currentPos.getY()][i] != null)
+                        if(board.spot[currentPos.getY()][i] != null)
                             return false;
 
 

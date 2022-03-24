@@ -22,8 +22,8 @@ public class PawnPiece extends Piece{
     @Override
     public boolean isValidMove(Point currentPos, Point newPos, Board board) {
 
-        Square currentPosSquare = board.square[currentPos.getY()][currentPos.getX()];
-        Square newPosSquare = board.square[newPos.getY()][newPos.getX()];
+        Spot currentPosSpot = board.spot[currentPos.getY()][currentPos.getX()];
+        Spot newPosSpot = board.spot[newPos.getY()][newPos.getX()];
 
 
         //Number of spaces moved in X and Y direction
@@ -31,13 +31,13 @@ public class PawnPiece extends Piece{
         int numSpacesY;
 
         //Check to make sure that the piece is not taking place of a piece of its own kind
-        if(newPosSquare != null && currentPosSquare.player.equals(newPosSquare.player)) {
+        if(newPosSpot != null && currentPosSpot.player.equals(newPosSpot.player)) {
             enpassant = '0';
             return false;
         }
         
         //Moving up the white's piece
-        if(currentPosSquare.player.equals("w"))
+        if(currentPosSpot.player.equals("w"))
             numSpacesY = currentPos.getY() - newPos.getY();
 
         //Moving down the Black's piece
@@ -45,16 +45,16 @@ public class PawnPiece extends Piece{
             numSpacesY = newPos.getY() - currentPos.getY();
 
         //Check to if space is empty/avaliable to move up/down
-        if(numSpacesX == 0 && newPosSquare == null) {
+        if(numSpacesX == 0 && newPosSpot == null) {
 
             //Moving up/down 1 space
             if(numSpacesY == 1) {
                 isFirstMove = false;
 
                 //Check for promotion
-                if(currentPosSquare.player.equals("w") && newPos.getY() == 0 ||
-                   currentPosSquare.player.equals("b") && newPos.getY() == 8)
-                    board.square[currentPos.getY()][currentPos.getX()] = new Square(parsePromotion(), currentPosSquare.player);
+                if(currentPosSpot.player.equals("w") && newPos.getY() == 0 ||
+                   currentPosSpot.player.equals("b") && newPos.getY() == 8)
+                    board.spot[currentPos.getY()][currentPos.getX()] = new Spot(parsePromotion(), currentPosSpot.player);
 
                 enpassant = '0';
                 return true;
@@ -65,7 +65,7 @@ public class PawnPiece extends Piece{
 
                 //Path should be clear
                 int midY = (currentPos.getY() + newPos.getY()) / 2;
-                if(board.square[midY][currentPos.getX()] == null) {
+                if(board.spot[midY][currentPos.getX()] == null) {
                     isFirstMove = false;
                     doubleJump = true;
                     enpassant = '0';
@@ -80,23 +80,23 @@ public class PawnPiece extends Piece{
         if(numSpacesX == 1 && numSpacesY == 1) {
 
             //Check to make sure that the piece is not taking place of a piece of its own kind and is capturing only opponent's piece
-            if(newPosSquare != null && !currentPosSquare.player.equals(newPosSquare.player)) {
+            if(newPosSpot != null && !currentPosSpot.player.equals(newPosSpot.player)) {
 
                 //Check for promotion
-                if(currentPosSquare.player.equals("w") && newPos.getY() == 0 ||
-                   currentPosSquare.player.equals("b") && newPos.getY() == 7)
-                    board.square[currentPos.getY()][currentPos.getX()] = new Square(parsePromotion(), currentPosSquare.player);
+                if(currentPosSpot.player.equals("w") && newPos.getY() == 0 ||
+                   currentPosSpot.player.equals("b") && newPos.getY() == 7)
+                    board.spot[currentPos.getY()][currentPos.getX()] = new Spot(parsePromotion(), currentPosSpot.player);
 
                 enpassant = '0';
                 return true;
             }
 
             //En passant
-            Square adjacentSquare = board.square[currentPos.getY()][newPos.getX()];
-            if(adjacentSquare != null &&
-               !adjacentSquare.player.equals(currentPosSquare.player) &&
-               adjacentSquare.piece instanceof PawnPiece &&
-                    ((PawnPiece) adjacentSquare.piece).doubleJump) {
+            Spot adjacentspot = board.spot[currentPos.getY()][newPos.getX()];
+            if(adjacentspot != null &&
+               !adjacentspot.player.equals(currentPosSpot.player) &&
+               adjacentspot.piece instanceof PawnPiece &&
+                    ((PawnPiece) adjacentspot.piece).doubleJump) {
 
                 enpassant = '1';
                 return true;

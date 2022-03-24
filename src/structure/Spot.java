@@ -8,7 +8,7 @@ import src.pieces.*;
  * @author Muskan Burman
  * @author Magdi Aref
  */
-public class Square {
+public class Spot {
 
     /**
      * Chess piece on the square
@@ -25,7 +25,7 @@ public class Square {
      * @param p Piece
      * @param pl Color of player
      */
-    public Square(Piece p, String pl) {
+    public Spot(Piece p, String pl) {
         this.piece = p;
         this.player = pl;
     }
