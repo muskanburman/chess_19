@@ -276,8 +276,8 @@ public class Game {
      */
     public boolean detectMate(String p) {
 
-        //stores the firstMove variable
-        boolean firstMove;
+        //stores the isFirstMove variable
+        boolean isFirstMove;
 
         //Loop through the board and find all white pieces
         for(int a = 0; a < 8; a++) {
@@ -291,8 +291,8 @@ public class Game {
                         for(int d = 0; d < 8; d++) {
                             Point end = new Point(d, c);
 
-                            //stores firstMove variable
-                            firstMove = board.square[a][b].piece.firstMove;
+                            //stores isFirstMove variable
+                            isFirstMove = board.square[a][b].piece.isFirstMove;
 
                             //check if it can move to given piece
                             if(board.square[a][b].piece.isValidMove(start, end, board)) {
@@ -314,8 +314,8 @@ public class Game {
                                 board.square[end.getY()][end.getX()] = endSquare;
                                 board.square[a][b] = startSquare;
 
-                                //Reset the firstMove variable
-                                board.square[a][b].piece.firstMove = firstMove;
+                                //Reset the isFirstMove variable
+                                board.square[a][b].piece.isFirstMove = isFirstMove;
 
                             }
                         }
