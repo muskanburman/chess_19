@@ -4,9 +4,9 @@ import src.pieces.*;
 import java.util.Scanner;
 
 /**
- * Holds all the internal logic and structure for a game of chess
- * including the current players turn, parsing inputs, moving pieces,
- * and declaring a winner
+ * Sets the structure and logic of the chess game and determines 
+ * the current players turn, parsing inputs, moving pieces,
+ * and whether a winner is decalered.
  *
  * @author Muskan Burman
  * @author Magdi Aref
@@ -30,7 +30,7 @@ public class Game {
     /**
      * Constructor
      *
-     * Creates a new Board object and calls the start() method
+     * Creates a new Board object, then calls the start method
      */
     public Game() {
         board = new Board();
@@ -38,8 +38,7 @@ public class Game {
     }
 
     /**
-     * Begins the game of chess. Loops for inputs by the user and alters
-     * the chess board until a winner is declared
+     * Chess game begins, code loops through use imputs until a winner is decided.
      *
      * @param board The chess board
      */
@@ -53,7 +52,7 @@ public class Game {
 
         while(!winnerDeclared) {
 
-            //Only print board if a move was executed
+            //Print board only if a move was executed
             if(lastMoveLegal)
                 board.display();
 
@@ -71,7 +70,7 @@ public class Game {
             if(input.equals("draw") && drawOffered)
                 break;
 
-            //Turn was valid, next players turn
+            //If the movement is valid, next players turn
             if(movePiece(input, turn)) {
                 if(turn == Turn.WHITE) {
                     turn = Turn.BLACK;
@@ -84,7 +83,7 @@ public class Game {
 
                 lastMoveLegal = true;
 
-                //Player made a valid move and offered a draw
+                //valid movement made by the player and player offered a draw
                 if(input.length() == 11 && input.substring(6, 11).equals("draw?"))
                     drawOffered = true;
                 else
@@ -99,7 +98,7 @@ public class Game {
                     System.out.println("\nCheck");
 
 
-                    //Check if player is in checkmate, if so they lose
+                    //Check if player is in checkmate, if true they lose
                     boolean checkMate = false;
                     if(turn == turn.WHITE)
                         checkMate = detectMate("w");
@@ -144,8 +143,7 @@ public class Game {
 
 
     /**
-     * Depending on which players turn it is, detects if they are
-     * requesting a valid move
+     * Detects if players are making a valid move depending on what the players pieces are.
      *
      * @param s The user's input in FileRank (start) FileRank (end) (IE a2 a4)
      * @param turn The current players turn, either white or black
@@ -167,13 +165,13 @@ public class Game {
         if(start == null || end == null)
             return false;
 
-        //Check to make sure square is not blank
+        //Check to see that square is not blank
         if(board.square[start.getY()][start.getX()] == null)
             return false;
 
         Square startSquare = board.square[start.getY()][start.getX()];
 
-        //Check to make sure player is moving their own piece
+        //Check that the approprate player is moving their own piece
         if((startSquare.player.equals("b") && turn == Turn.WHITE) ||
            (startSquare.player.equals("w") && turn == Turn.BLACK)) {
 
@@ -185,7 +183,7 @@ public class Game {
             startSquare.piece.promotion = s.charAt(6);
         }
 
-        //Check to make sure the specific piece (pawn, bishop, etc) is allowed to move in that direction
+        //Check to make sure the specific piece is allowed to move in that direction
         if(!startSquare.piece.isValidMove(start, end, board))
             return false;
 
@@ -245,7 +243,7 @@ public class Game {
             for(int j = 0; j < 8; j++) {
                 Square s = board.square[i][j];
                 if(s == null) {
-                    //Skip null spot
+                    //Skip the null spot
                 } else if(s.player.equals("w")) {
                     test = new Point(j , i);
                     if(s.piece.isValidMove(test, blacksKing, board)) {
