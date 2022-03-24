@@ -1,4 +1,4 @@
-package src.app;
+package src.structure;
 
 /**
  * Used to hold the x and y coordinate of a specific square on the chess board

@@ -1,6 +1,6 @@
 package src.pieces;
 
-import src.app.*;
+import src.structure.*;
 
 /**
  * Pawn chess piece, subclass of Piece

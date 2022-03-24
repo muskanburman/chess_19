@@ -1,4 +1,4 @@
-package src.app;
+package src.structure;
 
 import src.pieces.*;
 import java.util.Scanner;
