@@ -54,7 +54,7 @@ public class PawnPiece extends Piece{
 
                 //Check for promotion
                 if(startSquare.player.equals("w") && end.getY() == 0 ||
-                   startSquare.player.equals("b") && end.getY() == 7)
+                   startSquare.player.equals("b") && end.getY() == 8)
                     board.square[start.getY()][start.getX()] = new Square(parsePromotion(), startSquare.player);
 
                 enpassant = '0';

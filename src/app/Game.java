@@ -113,7 +113,7 @@ public class Game {
                             turn = turn.WHITE;
                         winnerDeclared = true;
                         System.out.println("Checkmate");
-                        System.out.println();
+                        //System.out.println();
                         //board.display();
 
                     }
