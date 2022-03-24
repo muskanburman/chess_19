@@ -165,47 +165,47 @@ public class Game {
         if(start == null || end == null)
             return false;
 
-        //Check to see that square is not blank
-        if(board.square[start.getY()][start.getX()] == null)
+        //Check to see that spot is not blank
+        if(board.spot[start.getY()][start.getX()] == null)
             return false;
 
-        Spot startSquare = board.square[start.getY()][start.getX()];
+        Spot startSpot = board.spot[start.getY()][start.getX()];
 
         //Check that the approprate player is moving their own piece
-        if((startSquare.player.equals("b") && turn == Turn.WHITE) ||
-           (startSquare.player.equals("w") && turn == Turn.BLACK)) {
+        if((startSpot.player.equals("b") && turn == Turn.WHITE) ||
+           (startSpot.player.equals("w") && turn == Turn.BLACK)) {
 
             return false;
         }
 
         //Check input included a promotion character
         if(s.length() >= 7) {
-            startSquare.piece.promotion = s.charAt(6);
+            startSpot.piece.promotion = s.charAt(6);
         }
 
         //Check to make sure the specific piece is allowed to move in that direction
-        if(!startSquare.piece.isValidMove(start, end, board))
+        if(!startSpot.piece.isValidMove(start, end, board))
             return false;
 
         //En passant executed by player
-        if(startSquare.piece.enpassant == '1') {
-            board.square[start.getY()][end.getX()] = null;
+        if(startSpot.piece.enpassant == '1') {
+            board.spot[start.getY()][end.getX()] = null;
         }
 
         //Castling executed by player
-        if(startSquare.piece.castling == 'l') {
-            board.square[end.getY()][end.getX() + 1] = board.square[end.getY()][0];
-            board.square[end.getY()][0] = null;
+        if(startSpot.piece.castling == 'l') {
+            board.spot[end.getY()][end.getX() + 1] = board.spot[end.getY()][0];
+            board.spot[end.getY()][0] = null;
         }
-        if(startSquare.piece.castling == 'r') {
-            board.square[end.getY()][end.getX() - 1] = board.square[end.getY()][7];
-            board.square[end.getY()][7] = null;
+        if(startSpot.piece.castling == 'r') {
+            board.spot[end.getY()][end.getX() - 1] = board.spot[end.getY()][7];
+            board.spot[end.getY()][7] = null;
         }
 
 
         //Move the piece
-        board.square[end.getY()][end.getX()] = board.square[start.getY()][start.getX()];
-        board.square[start.getY()][start.getX()] = null;
+        board.spot[end.getY()][end.getX()] = board.spot[start.getY()][start.getX()];
+        board.spot[start.getY()][start.getX()] = null;
 
         return true;
 
@@ -224,7 +224,7 @@ public class Game {
         //Search for each king
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-                Spot s = board.square[i][j];
+                Spot s = board.spot[i][j];
                 if(s == null) {
                     //Skip null spot
                 }
@@ -241,7 +241,7 @@ public class Game {
         int x = 0;
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-                Spot s = board.square[i][j];
+                Spot s = board.spot[i][j];
                 if(s == null) {
                     //Skip the null spot
                 } else if(s.player.equals("w")) {
@@ -282,8 +282,8 @@ public class Game {
         //Loop through the board and find all white pieces
         for(int a = 0; a < 8; a++) {
             for(int b = 0; b < 8; b++) {
-                if(board.square[a][b] != null &&
-                   board.square[a][b].player.equals(p)) {
+                if(board.spot[a][b] != null &&
+                   board.spot[a][b].player.equals(p)) {
                     Point start = new Point(b , a);
 
                     //Check every piece on the board to see if a move is possible.
@@ -292,30 +292,30 @@ public class Game {
                             Point end = new Point(d, c);
 
                             //stores isFirstMove variable
-                            isFirstMove = board.square[a][b].piece.isFirstMove;
+                            isFirstMove = board.spot[a][b].piece.isFirstMove;
 
                             //check if it can move to given piece
-                            if(board.square[a][b].piece.isValidMove(start, end, board)) {
+                            if(board.spot[a][b].piece.isValidMove(start, end, board)) {
 
                                 //Move the piece
-                                Spot startSquare = board.square[a][b];
-                                Spot endSquare = board.square[end.getY()][end.getX()];
-                                board.square[end.getY()][end.getX()] = board.square[a][b];
-                                board.square[a][b] = null;
+                                Spot startspot = board.spot[a][b];
+                                Spot endspot = board.spot[end.getY()][end.getX()];
+                                board.spot[end.getY()][end.getX()] = board.spot[a][b];
+                                board.spot[a][b] = null;
 
                                 //Finds a situation where the player may move a piece to not be in check anymore
                                 if(!detectCheck()) {
-                                    board.square[end.getY()][end.getX()] = endSquare;
-                                    board.square[a][b] = startSquare;
+                                    board.spot[end.getY()][end.getX()] = endspot;
+                                    board.spot[a][b] = startspot;
                                     return false;
                                 }
 
                                 //Put the board back
-                                board.square[end.getY()][end.getX()] = endSquare;
-                                board.square[a][b] = startSquare;
+                                board.spot[end.getY()][end.getX()] = endspot;
+                                board.spot[a][b] = startspot;
 
                                 //Reset the isFirstMove variable
-                                board.square[a][b].piece.isFirstMove = isFirstMove;
+                                board.spot[a][b].piece.isFirstMove = isFirstMove;
 
                             }
                         }
@@ -375,12 +375,12 @@ public class Game {
 
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-                Spot s = board.square[i][j];
+                Spot s = board.spot[i][j];
                 if(s == null) {
 
                 }
                 else if(s.piece instanceof PawnPiece && s.player.equals(player))
-                    ((PawnPiece) board.square[i][j].piece).doubleJump = false;
+                    ((PawnPiece) board.spot[i][j].piece).doubleJump = false;
             }
         }
     }
