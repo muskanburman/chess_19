@@ -143,10 +143,10 @@ public class Game {
 
 
     /**
-     * Detects if players are making a valid move depending on what the players pieces are.
+     * Determines if players are making a valid move depending on what the players pieces are.
      *
-     * @param s The user's input in FileRank (start) FileRank (end) (IE a2 a4)
-     * @param turn The current players turn, either white or black
+     * @param s The user's input in FileRank from start to end 
+     * @param turn The current players turn
      * @return True if the move was valid for the chess piece or false otherwise
      */
     public boolean movePiece(String s, Turn turn) {
@@ -187,12 +187,12 @@ public class Game {
         if(!startSquare.piece.isValidMove(start, end, board))
             return false;
 
-        //Player executed en passant
+        //En passant executed by player
         if(startSquare.piece.enpassant == '1') {
             board.square[start.getY()][end.getX()] = null;
         }
 
-        //Player executed castling
+        //Castling executed by player
         if(startSquare.piece.castling == 'l') {
             board.square[end.getY()][end.getX() + 1] = board.square[end.getY()][0];
             board.square[end.getY()][0] = null;
@@ -212,13 +212,13 @@ public class Game {
     }
 
     /**
-     * Detects if a player is currently in check
+     * Determines if a player is in check
      *
      * @return True if a player is in check, false otherwise
      */
     public boolean detectCheck() {
 
-        //Holds the location of each player's king, and the piece to compare
+        //Marks the location of each player's king and marks the piece to compare
         Point whitesKing = null, blacksKing = null, test;
 
         //Search for each king
@@ -237,7 +237,7 @@ public class Game {
            
         }
 
-        //Compare each piece to see if it can attack opponents king
+        //Compares each piece to see if it can attack the opponents king
         int x = 0;
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
@@ -268,32 +268,32 @@ public class Game {
     }
 
     /**
-     * Detects if a player is in Checkmate
+     * Determines if a player is in Checkmate
      *
      * @param p The player to check for checkmate (w or b)
      * @return True if player is in checkmate, false otherwise
      */
     public boolean detectMate(String p) {
 
-        //Saves the firstMove variable
+        //stores the firstMove variable
         boolean firstMove;
 
-        //Loop through board and find white's pieces
+        //Loop through the board and find all white pieces
         for(int a = 0; a < 8; a++) {
             for(int b = 0; b < 8; b++) {
                 if(board.square[a][b] != null &&
                    board.square[a][b].player.equals(p)) {
                     Point start = new Point(b , a);
 
-                    //Check every piece on the board to see if it can move there
+                    //Check every piece on the board to see if a move is possible.
                     for(int c = 0; c < 8; c++) {
                         for(int d = 0; d < 8; d++) {
                             Point end = new Point(d, c);
 
-                            //Save firstMove variable
+                            //stores firstMove variable
                             firstMove = board.square[a][b].piece.firstMove;
 
-                            //It can move to given piece
+                            //check if it can move to given piece
                             if(board.square[a][b].piece.isValidMove(start, end, board)) {
 
                                 //Move the piece
@@ -302,7 +302,7 @@ public class Game {
                                 board.square[end.getY()][end.getX()] = board.square[a][b];
                                 board.square[a][b] = null;
 
-                                //Found a situation where player can move piece and not be in check anymore
+                                //Finds a situation where the player may move a piece to not be in check anymore
                                 if(!detectCheck()) {
                                     board.square[end.getY()][end.getX()] = endSquare;
                                     board.square[a][b] = startSquare;
@@ -328,10 +328,10 @@ public class Game {
     }
 
     /**
-     * Parses an input into a x and y coordinate (IE: a1 gets converted to (0, 7))
+     * Parses an input into a x and y coordinate 
      *
-     * @param s FileRank (IE a1)
-     * @return A new Point object with the x and y coordinates pertaining to the location on a chessboard
+     * @param s FileRank 
+     * @return A new Point object with the x and y coordinates belonging to that location on a chessboard
      */
     public Point getPosition(String s) {
 
@@ -356,7 +356,7 @@ public class Game {
 
         //y coordinate
         y = Character.getNumericValue(c2);
-        y = 8 - y; //Maps input to index of board (IE 8 goes to 0, 7 to 1, etc)
+        y = 8 - y; //Maps input to index of board 
 
         //Check bounds;
         if(y < 0 || y > 7)
@@ -366,7 +366,7 @@ public class Game {
     }
 
     /**
-     * Goes through each pawn and clears their enpassant value
+     * Loops through every pawn and clears their enpassant value
      *
      * @param player Player to compare (white or black)
      */

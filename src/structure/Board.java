@@ -3,7 +3,7 @@ package src.structure;
 import src.pieces.*;
 
 /**
- * Object that holds the chessboard in a 8x8 array of Squares
+ * Object that holds the chessboard in a 8x8 array of Squares for the initializtion of the chess board.
  *
  * @author Muskan Burman
  * @author Magdi Aref
@@ -12,16 +12,14 @@ import src.pieces.*;
 public class Board {
 
     /**
-     * 2d array of Squares
+     * create a 2d array of Squares
      */
     public Square[][] square;
 
     /**
      * Constructor
      *
-     * Creates a new 8x8 array of Squares and initialize each square to
-     * the correct chess piece and player color in the beginning of a
-     * standard chess match
+     * Genrates an 8x8 array of squares and initializes each piece to its corresponding square and the player color at the start of a match.
      */
     public Board() {
 
@@ -60,11 +58,11 @@ public class Board {
     }
 
     /**
-     * Prints the current state of the chess board formatted
+     * Prints the current form of the formatted chessboard 
      */
     public void display() {
         /**
-         * For printing ## every other square
+         *Prints ## every other square
          */
         boolean hash = false;
         for(int i = 0; i < 8; i++) {

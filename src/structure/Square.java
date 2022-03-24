@@ -15,7 +15,7 @@ public class Square {
      */
     public Piece piece;
     /**
-     * The player (white or black) who owns the piece on the square
+     * Prints player color of player who owns the piece 
      */
     public String player;
 
@@ -23,7 +23,7 @@ public class Square {
      * Constructor
      *
      * @param p Piece
-     * @param pl Player color
+     * @param pl Color of player
      */
     public Square(Piece p, String pl) {
         this.piece = p;
@@ -33,7 +33,7 @@ public class Square {
     /**
      * Overridden toString method
      *
-     * @return The formatted color and chess piece (IE white's king: wK)
+     * @return The player color and chess piece  ex. white's king: wK
      */
     @Override
     public String toString() {
