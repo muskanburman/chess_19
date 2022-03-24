@@ -19,6 +19,7 @@ public class PawnPiece extends Piece{
         doubleJump = false;
     }
 
+    
     @Override
     public boolean isValidMove(Point currentPos, Point newPos, Board board) {
 

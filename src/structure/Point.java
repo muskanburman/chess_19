@@ -38,6 +38,10 @@ public class Point {
         return y;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "(" + x + " , " + y + ")";
