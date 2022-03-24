@@ -1,7 +1,7 @@
 package src.structure;
 
 /**
- * Chess holds the main method that begins a new Chess match by creating a new Game object
+ * Chess contains the main method to start the chess game by creating a "new Game" object
  *
  * @author Muskan Burman
  * @author Magdi Aref
@@ -11,7 +11,7 @@ public class Chess {
     /**
      * Main method
      *
-     * @param args Command line arguments
+     * @param args Command line args
      */
     public static void main(String[] args) {
         new Game();

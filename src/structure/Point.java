@@ -1,7 +1,7 @@
 package src.structure;
 
 /**
- * Used to hold the x and y coordinate of a specific square on the chess board
+ * Holds the x and y coordinate of a specific square on the chess board
  *
  * @author Muskan Burman
  * @author Magdi Aref
@@ -21,7 +21,7 @@ public class Point {
     }
 
     /**
-     * Getter for int x
+     *int x getter
      *
      * @return the x-coordinate
      */
@@ -30,7 +30,7 @@ public class Point {
     }
 
     /**
-     * Getter for int y
+     *int y getter
      *
      * @return the y-coordinate
      */
