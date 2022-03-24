@@ -3,71 +3,70 @@ package src.pieces;
 import src.structure.*;
 
 /**
- * Pawn chess piece, subclass of Piece
+ * This is the class for the Pawn piece, and it extends the class Piece
  *
  * @author Muskan Burman
  * @author Magdi Aref
  */
 public class PawnPiece extends Piece{
 
-    //Tracks if last move made was 2 spaces
+    //Is true if the last move was 2 spaces, false otherwise
     public boolean doubleJump;
-    //public boolean firstMove;
 
-    //Which piece to promote the pawn to
+    //the piece the pawn will be promoted to 
     public PawnPiece() {
-        firstMove = true;
+        isFirstMove = true;
         doubleJump = false;
     }
 
     @Override
-    public boolean isValidMove(Point start, Point end, Board board) {
+    public boolean isValidMove(Point currentPos, Point newPos, Board board) {
 
-        Square startSquare = board.square[start.getY()][start.getX()];
-        Square endSquare = board.square[end.getY()][end.getX()];
+        Square currentPosSquare = board.square[currentPos.getY()][currentPos.getX()];
+        Square newPosSquare = board.square[newPos.getY()][newPos.getX()];
 
 
         //Number of spaces moved in X and Y direction
-        int numSpacesX = Math.abs(start.getX() - end.getX());
+        int numSpacesX = Math.abs(currentPos.getX() - newPos.getX());
         int numSpacesY;
 
-        //Check to make sure not landing on their own piece
-        if(endSquare != null && startSquare.player.equals(endSquare.player)) {
+        //Check to make sure that the piece is not taking place of a piece of its own kind
+        if(newPosSquare != null && currentPosSquare.player.equals(newPosSquare.player)) {
             enpassant = '0';
             return false;
         }
         
-        //Whites piece, moving up
-        if(startSquare.player.equals("w"))
-            numSpacesY = start.getY() - end.getY();
+        //Moving up the white's piece
+        if(currentPosSquare.player.equals("w"))
+            numSpacesY = currentPos.getY() - newPos.getY();
 
-        //Blacks piece, moving down
+        //Moving down the Black's piece
         else
-            numSpacesY = end.getY() - start.getY();
+            numSpacesY = newPos.getY() - currentPos.getY();
 
-        //Trying to move up/down, check if space is empty
-        if(numSpacesX == 0 && endSquare == null) {
+        //Check to if space is empty/avalaible to move up/down
+        if(numSpacesX == 0 && newPosSquare == null) {
 
             //Moving up/down 1 space
             if(numSpacesY == 1) {
-                firstMove = false;
+                isFirstMove = false;
 
                 //Check for promotion
-                if(startSquare.player.equals("w") && end.getY() == 0 ||
-                   startSquare.player.equals("b") && end.getY() == 8)
-                    board.square[start.getY()][start.getX()] = new Square(parsePromotion(), startSquare.player);
+                if(currentPosSquare.player.equals("w") && newPos.getY() == 0 ||
+                   currentPosSquare.player.equals("b") && newPos.getY() == 8)
+                    board.square[currentPos.getY()][currentPos.getX()] = new Square(parsePromotion(), currentPosSquare.player);
 
                 enpassant = '0';
                 return true;
             }
 
             //Moving up/down 2 spaces, check if first move
-            if(numSpacesY == 2 && firstMove == true) {
+            if(numSpacesY == 2 && isFirstMove == true) {
 
                 //Check if path is clear
-                int midY = (start.getY() + end.getY()) / 2;
-                if(board.square[midY][start.getX()] == null) {
-                    firstMove = false;
+                int midY = (currentPos.getY() + newPos.getY()) / 2;
+                if(board.square[midY][currentPos.getX()] == null) {
+                    isFirstMove = false;
                     doubleJump = true;
                     enpassant = '0';
                     return true;
@@ -81,21 +80,21 @@ public class PawnPiece extends Piece{
         if(numSpacesX == 1 && numSpacesY == 1) {
 
             //Check to make sure trying to capture opponents piece and not landing on their own
-            if(endSquare != null && !startSquare.player.equals(endSquare.player)) {
+            if(newPosSquare != null && !currentPosSquare.player.equals(newPosSquare.player)) {
 
                 //Check for promotion
-                if(startSquare.player.equals("w") && end.getY() == 0 ||
-                   startSquare.player.equals("b") && end.getY() == 7)
-                    board.square[start.getY()][start.getX()] = new Square(parsePromotion(), startSquare.player);
+                if(currentPosSquare.player.equals("w") && newPos.getY() == 0 ||
+                   currentPosSquare.player.equals("b") && newPos.getY() == 7)
+                    board.square[currentPos.getY()][currentPos.getX()] = new Square(parsePromotion(), currentPosSquare.player);
 
                 enpassant = '0';
                 return true;
             }
 
             //En passant
-            Square adjacentSquare = board.square[start.getY()][end.getX()];
+            Square adjacentSquare = board.square[currentPos.getY()][newPos.getX()];
             if(adjacentSquare != null &&
-               !adjacentSquare.player.equals(startSquare.player) &&
+               !adjacentSquare.player.equals(currentPosSquare.player) &&
                adjacentSquare.piece instanceof PawnPiece &&
                     ((PawnPiece) adjacentSquare.piece).doubleJump) {
 

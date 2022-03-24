@@ -3,36 +3,37 @@ package src.pieces;
 import src.structure.*;
 
 /**
- * The basis for a standard chess piece
+ * This class is the basis/parent class for all the other pieces' classes.
  *
  * @author Muskan Burman
  * @author Magdi Aref
  */
 public abstract class Piece {
     /**
-     * Tracks if the piece has made a move yet
+     * Is true if the first move has been made by a piece and false otherwise.
      */
-    public boolean firstMove;
+    public boolean isFirstMove;
     /**
-     * Tracks if pawn is eligable for promotion
+     * For pawn promotion 
      */
     public char promotion;
     /**
-     * Tracks if en passant is possible
+     * For en passant 
      */
     public char enpassant;
     /**
-     * Tracks if castling is possible
+     * For left and right castling 
      */
     public char castling;
 
     /**
-     * Used by each chess piece to validate if a move is legal
+     * This method checks if the move made by a piece is a valid/legitimate move for that piece. 
+     * This method is abstract because it later gets called on by each piece separately, as needed.
      *
-     * @param start Where the piece is currently
-     * @param end Where the piece wants to go
-     * @param board The chess board
-     * @return True if the piece can move ot the end point legally, false otherwise
+     * @param currentPos  the current position of the piece
+     * @param newPos  the new position of the piece
+     * @param board  the chess board
+     * @return true if the move made by the piece from the current position to the new position is legal, false otherwise
      */
-    public abstract boolean isValidMove(Point start, Point end, Board board);
+    public abstract boolean isValidMove(Point currentPos, Point newPos, Board board);
 }

@@ -3,7 +3,7 @@ package src.pieces;
 import src.structure.*;
 
 /**
- * Knight chess piece, subclass of Piece
+ * This is the class for the Knight piece, and it extends the class Piece
  *
  * @author Muskan Burman
  * @author Magdi Aref
@@ -11,28 +11,28 @@ import src.structure.*;
 public class KnightPiece extends Piece {
 
     public KnightPiece() {
-        firstMove = true;
+        isFirstMove = true;
     }
 
     @Override
-    public boolean isValidMove(Point start, Point end, Board board) {
+    public boolean isValidMove(Point currentPos, Point newPos, Board board) {
 
-        Square startSquare = board.square[start.getY()][start.getX()];
-        Square endSquare = board.square[end.getY()][end.getX()];
+        Square currentPosSquare = board.square[currentPos.getY()][currentPos.getX()];
+        Square newPosSquare = board.square[newPos.getY()][newPos.getX()];
 
         //Number of spaces moved in X and Y direction
-        int numSpacesX = Math.abs(start.getX() - end.getX());
-        int numSpacesY = Math.abs(start.getY() - end.getY());
+        int numSpacesX = Math.abs(currentPos.getX() - newPos.getX());
+        int numSpacesY = Math.abs(currentPos.getY() - newPos.getY());
 
-        //Check to make sure not landing on their own piece
-        if(endSquare != null && startSquare.player.equals(endSquare.player))
+        //Check to make sure that the piece is not taking place of a piece of its own kind
+        if(newPosSquare != null && currentPosSquare.player.equals(newPosSquare.player))
             return false;
 
-        //Left or right 1, up or down 2
+        //Move 1 Left or right , move 2 up or down 
         if(numSpacesX == 1 && numSpacesY == 2)
             return true;
 
-        //Left or right 2, up or down 1
+        //Move 2 Left or right, move 1 up or down 
         if(numSpacesX == 2 && numSpacesY == 1)
             return true;
 
