@@ -260,6 +260,7 @@ public class Game {
                         return true;    //White in check
 
                     }
+                
                 }
             }
         }
