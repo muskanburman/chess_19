@@ -1,4 +1,4 @@
-package src.app;
+package src.structure;
 
 /**
  * Chess holds the main method that begins a new Chess match by creating a new Game object
