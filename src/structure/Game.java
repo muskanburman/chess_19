@@ -38,7 +38,7 @@ public class Game {
     }
 
     /**
-     * Chess game begins, code loops through use imputs until a winner is decided.
+     * Chess game begins, code loops through use inputs until a winner is decided.
      *
      * @param board The chess board
      */
@@ -247,16 +247,12 @@ public class Game {
                 } else if(s.player.equals("w")) {
                     test = new Point(j , i);
                     if(s.piece.isValidMove(test, blacksKing, board)) {
-                        //System.out.println("White's " + s.piece.getClass().getSimpleName() + " can attack black's king");
-                        //board.display();
                         return true;    //Black in check
 
                     }
                 } else if(s.player.equals("b")) {
                     test = new Point(j , i);
                     if(s.piece.isValidMove(test, whitesKing, board)) {
-                        //System.out.println("Black's " + s.piece.getClass().getSimpleName() + " can attack white's king");
-                        //board.display();
                         return true;    //White in check
 
                     }
